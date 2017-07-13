@@ -6,3 +6,5 @@ authors = ["Arthur Asatryan <biacoder@gmail.com>"]
 [dependencies]
 lettre = "0.6"
 app_dirs = "1.1.1"
+log = "0.3.8"
+env_logger = "0.4.3"
