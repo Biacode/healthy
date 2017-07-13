@@ -1,0 +1,7 @@
+[package]
+name = "healthy"
+version = "0.1.0"
+authors = ["Arthur Asatryan <biacoder@gmail.com>"]
+
+[dependencies]
+lettre = "0.6"
