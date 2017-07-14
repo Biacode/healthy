@@ -1,12 +1,6 @@
 [root]
-name = "healthy"
-version = "0.0.0"
-dependencies = [
- "app_dirs 1.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "env_logger 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "lettre 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "log 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
-]
+name = "healthy-scheduler"
+version = "0.1.0"
 
 [[package]]
 name = "aho-corasick"
@@ -148,6 +142,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "gcc"
 version = "0.3.51"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "healthy"
+version = "0.0.0"
+dependencies = [
+ "app_dirs 1.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "env_logger 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "lettre 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "log 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "healthy-config"
+version = "0.1.0"
+
+[[package]]
+name = "healthy-core"
+version = "0.1.0"
 
 [[package]]
 name = "kernel32-sys"

@@ -14,6 +14,9 @@ exclude = [
     ".gitignore",
 ]
 
+[workspace]
+members = ["healthy-core", "healthy-config", "healthy-scheduler"]
+
 [dependencies]
 lettre = "0.6"
 app_dirs = "1.1.1"

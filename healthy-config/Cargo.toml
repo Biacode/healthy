@@ -1,0 +1,7 @@
+[package]
+name = "healthy-config"
+version = "0.1.0"
+authors = ["Arthur Asatryan <biacoder@gmail.com>"]
+workspace = "../"
+
+[dependencies]
