@@ -53,21 +53,17 @@ impl EmailYamlConfiguration {
     }
 }
 
-/// Email yaml configuration implementation of `Configuration`
 impl Configuration for EmailYamlConfiguration {}
 
-/// Email yaml configuration parser
+/// Email `yaml` configuration parser
 struct EmailYamlConfigurationParser {}
 
-/// Email yaml configuration parser concrete implementations
 impl EmailYamlConfigurationParser {
     fn new() -> Self {
         EmailYamlConfigurationParser {}
     }
 }
 
-/// Email yaml configuration parser implementation of `ConfigurationParser`
-/// with `EmailYamlConfiguration` configuration
 impl ConfigurationParser<EmailYamlConfiguration> for EmailYamlConfigurationParser {
     fn parse(self) -> EmailYamlConfiguration {
         let config_path = app_dirs::get_app_dir(
