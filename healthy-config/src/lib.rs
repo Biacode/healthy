@@ -20,7 +20,7 @@ pub const APP_INFO: app_dirs::AppInfo = app_dirs::AppInfo { name: "healthy", aut
 
 ///reexports
 pub use email::EmailConfiguration;
-pub use yaml::{EmailYamlConfigurationParser, HealthyYamlParserError};
+pub use yaml::{EmailConfigurationParser, EmailConfigurationParserError};
 
 /// Implement this trait for custom configuration.
 pub trait Configuration {}
