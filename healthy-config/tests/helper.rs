@@ -1,3 +1,4 @@
+extern crate serde;
 extern crate serde_yaml;
 
 extern crate healthy_config;
@@ -12,13 +13,13 @@ pub fn prepare_configuration_file(file_name: &String) -> EmailConfiguration {
         .from("biacoder@gmail.com".to_owned())
         .content("Hello, World!".to_owned());
     path::write_file(
-        &serialize_email_configuration_to_yaml(&configuration),
+        &serialize_configuration(&configuration),
         &app_dirs::get_app_root(app_dirs::AppDataType::UserConfig, &APP_INFO).unwrap(),
         file_name
     ).unwrap();
     configuration
 }
 
-pub fn serialize_email_configuration_to_yaml(configuration: &EmailConfiguration) -> String {
+pub fn serialize_configuration<T: serde::Serialize>(configuration: &T) -> String {
     serde_yaml::to_string(&configuration).unwrap()
 }
