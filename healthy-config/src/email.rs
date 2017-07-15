@@ -15,14 +15,16 @@ impl Configuration for EmailConfiguration {}
 
 impl EmailConfiguration {
     /// Creates default configuration.
-    ///
     /// Chain with builder methods to construct configuration instead of parsing it.
-    /// # Example
+    ///
+    /// # Examples
+    ///
     /// ```rust
-    ///EmailConfiguration::new()
-    ///    .to("foo@bar.com")
-    ///    .from("biacoder@gmail.com")
-    ///    .content("<p>Hello, World!</p>");
+    /// # extern crate healthy_config;
+    /// healthy_config::EmailConfiguration::new()
+    ///     .to("foo@bar.com".to_owned())
+    ///     .from("biacoder@gmail.com".to_owned())
+    ///     .content("<p>Hello, World!</p>".to_owned());
     /// ```
     pub fn new() -> Self {
         debug!("Creating a new default email configuration");

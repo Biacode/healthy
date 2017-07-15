@@ -7,7 +7,7 @@ extern crate app_dirs;
 use healthy_config::*;
 
 /// Prepares configuration file for test scenario.
-pub fn prepare_configuration_file(file_name: &String) -> EmailConfiguration {
+pub fn create_email_configuration_file(file_name: &String) -> EmailConfiguration {
     let configuration = EmailConfiguration::new()
         .to("foo@bar.com".to_owned())
         .from("biacoder@gmail.com".to_owned())
