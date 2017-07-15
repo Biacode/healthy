@@ -1,0 +1,20 @@
+sudo: false
+language: rust
+matrix:
+  fast_finish: true
+  include:
+    - rust: nightly
+#    - rust: beta
+#    - rust: stable
+
+script:
+- cargo test --no-run
+
+cache: cargo
+
+addons:
+  apt:
+    packages:
+      - libcurl4-openssl-dev
+      - libelf-dev
+      - libdw-dev
