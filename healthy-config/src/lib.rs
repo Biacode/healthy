@@ -46,7 +46,9 @@ pub trait Configuration {}
 ///}
 /// ```
 pub trait ConfigurationParser<T: Configuration> {
-    fn parse(self) -> T;
+    type HealthyParserError;
+
+    fn parse(self) -> Result<T, Self::HealthyParserError>;
 }
 
 #[cfg(test)]

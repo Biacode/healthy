@@ -3,6 +3,7 @@
 
 use super::std;
 use super::{Configuration, ConfigurationParser, app_dirs, serde_yaml};
+use app_dirs::*;
 
 const CONFIGURATION_FILE: &'static str = "healthy.yaml";
 const APP_INFO: app_dirs::AppInfo = app_dirs::AppInfo { name: "healthy", author: "Biacode" };
@@ -64,16 +65,30 @@ impl EmailYamlConfigurationParser {
     }
 }
 
+/// Possible error which can occur while parsing `yaml`
+#[derive(Debug)]
+enum HealthyYamlParserError {
+    CantReadPath,
+    CantReadFile,
+    CantDeserializeYaml
+}
+
 impl ConfigurationParser<EmailYamlConfiguration> for EmailYamlConfigurationParser {
-    fn parse(self) -> EmailYamlConfiguration {
-        let config_path = app_dirs::get_app_dir(
-            app_dirs::AppDataType::UserConfig,
-            &APP_INFO,
-            CONFIGURATION_FILE
-        ).unwrap();
-        let yaml_string = read_file(config_path).unwrap();
-        let deser_config: EmailYamlConfiguration = serde_yaml::from_str(&yaml_string).unwrap();
-        deser_config
+    type HealthyParserError = HealthyYamlParserError;
+
+    fn parse(self) -> Result<EmailYamlConfiguration, HealthyYamlParserError> {
+        let config_path = match get_app_dir(AppDataType::UserConfig, &APP_INFO, CONFIGURATION_FILE) {
+            Ok(path) => path,
+            Err(_) => return Err(HealthyYamlParserError::CantReadPath)
+        };
+        let yaml_string = match read_file(config_path) {
+            Ok(parsed_string) => parsed_string,
+            Err(_) => return Err(HealthyYamlParserError::CantReadFile)
+        };
+        match serde_yaml::from_str(&yaml_string) {
+            Ok(deser_config) => return Ok(deser_config),
+            Err(_) => return Err(HealthyYamlParserError::CantDeserializeYaml)
+        }
     }
 }
 
@@ -112,6 +127,6 @@ mod tests {
     #[test]
     fn can_parse_email_configuration_from_file() {
         let configuration = EmailYamlConfigurationParser::new().parse();
-        println!("configuration = {:?}", configuration);
+        println!("configuration = {:?}", configuration.unwrap());
     }
 }
