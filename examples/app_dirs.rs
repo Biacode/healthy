@@ -5,5 +5,5 @@ use app_dirs::*;
 const APP_INFO: AppInfo = AppInfo { name: "healthy", author: "Biacode" };
 
 fn main() {
-    println!("{:?}", get_app_root(AppDataType::UserConfig, &APP_INFO));
+    println!("{:?}", app_dirs::get_app_dir(app_dirs::AppDataType::UserConfig, &APP_INFO, "healthy.yaml"));
 }
