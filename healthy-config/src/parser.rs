@@ -1,8 +1,9 @@
 //! Author - Arthur Asatryan<br/>
 //! Email - biacoder@gmail.com
 
-use super::{APP_INFO, Parser, ParserError, app_dirs, serde_yaml};
+use super::{APP_INFO, app_dirs, serde_yaml};
 use super::email::EmailConfiguration;
+use healthy_core::{Parser, ParserError};
 
 /// Email configuration parser
 pub struct YamlConfigurationParser {

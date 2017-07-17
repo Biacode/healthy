@@ -1,7 +1,7 @@
 //! Author - Arthur Asatryan<br/>
 //! Email - biacoder@gmail.com
 
-use super::*;
+use healthy_core::Configuration;
 
 /// Email configuration.
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
