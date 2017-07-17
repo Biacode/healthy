@@ -1,6 +1,3 @@
-//! Author - Arthur Asatryan<br/>
-//! Email - biacoder@gmail.com
-
 use healthy_core::Configuration;
 
 /// Email configuration.

@@ -1,70 +1,68 @@
-//! Author - Arthur Asatryan<br/>
-//! Email - biacoder@gmail.com
-
-use super::{APP_INFO, app_dirs, serde_yaml};
+use super::{util, serde_yaml};
 use super::email::EmailConfiguration;
 use healthy_core::{Parser, ParserError};
 
-/// Email configuration parser
-pub struct YamlConfigurationParser {
+/// File configuration parser.
+pub trait FileConfigurationParser {
+    fn get_file_name(&self) -> &String;
+}
+
+/// yaml file configuration parser.
+pub struct YamlFileConfigurationParser {
     file_name: String
 }
 
-impl YamlConfigurationParser {
-    /// Creates a new email yaml configuration parser for the given `file_name`.
+impl FileConfigurationParser for YamlFileConfigurationParser {
+    fn get_file_name(&self) -> &String {
+        &self.file_name
+    }
+}
+
+impl YamlFileConfigurationParser {
+    /// Creates a new yaml file configuration parser for the given `file_name`.
     pub fn new(file_name: String) -> Self {
         debug!("Creating a new configuration parser for file with name {}", file_name);
-        YamlConfigurationParser { file_name: file_name }
+        YamlFileConfigurationParser { file_name: file_name }
     }
 }
 
 /// Possible error which can occur while parsing file.
 #[derive(Debug)]
-pub enum ConfigurationParseError {
+pub enum FileConfigurationParseError {
     CantReadPath,
     CantReadFile,
     CantDeserializeFile
 }
 
-impl ParserError for ConfigurationParseError {}
+impl ParserError for FileConfigurationParseError {}
 
-impl Parser<EmailConfiguration> for YamlConfigurationParser {
-    type ParserError = ConfigurationParseError;
+impl Parser<EmailConfiguration> for YamlFileConfigurationParser {
+    type ParserError = FileConfigurationParseError;
 
-    fn parse(self) -> Result<EmailConfiguration, ConfigurationParseError> {
-        let parsed_string = read_configuration_file_as_string(&self)?;
-        match serde_yaml::from_str(&read_configuration_file_as_string(&self)?) {
+    /// Parses yaml email configuration file in to `EmailConfiguration` struct
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// parser::YamlFileConfigurationParser::new("foo.txt".to_owned()).parse();
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns `Err(parser::FileConfigurationParseError)` if failed to parse configuration file
+    fn parse(self) -> Result<EmailConfiguration, FileConfigurationParseError> {
+        let parsed_string = util::read_parser_file(&self)?;
+        match serde_yaml::from_str(&parsed_string) {
             Ok(config) => return {
                 debug!("Successfully deserialize - {:?}", &config);
                 Ok(config)
             },
             Err(e) => {
                 error!("An error - {} occurs while trying to parse string - {}", e, &parsed_string);
-                return Err(ConfigurationParseError::CantDeserializeFile);
+                return Err(FileConfigurationParseError::CantDeserializeFile);
             }
         }
     }
-}
-
-/// Reads the given `configuration_parser`'s file as string.
-fn read_configuration_file_as_string(configuration_parser: &YamlConfigurationParser) -> Result<String, ConfigurationParseError> {
-    let config_path = match app_dirs::get_app_root(app_dirs::AppDataType::UserConfig, &APP_INFO) {
-        Ok(path) => path,
-        Err(e) => {
-            error!("An error - {} occurs while trying to read configuration path", e);
-            return Err(ConfigurationParseError::CantReadPath);
-        }
-    };
-    debug!("Successfully read configuration path - {:?}", &config_path);
-    let parsed_string = match super::util::read_file(&config_path, &configuration_parser.file_name) {
-        Ok(s) => s,
-        Err(e) => return {
-            error!("An error - {} occurs while trying to read file - {}", e, &configuration_parser.file_name);
-            Err(ConfigurationParseError::CantReadFile)
-        }
-    };
-    debug!("Successfully read configuration file as string - {}", &parsed_string);
-    return Ok(parsed_string);
 }
 
 #[cfg(test)]
@@ -75,7 +73,7 @@ mod tests {
     #[test]
     fn has_email_configuration_parser() {
         let file_name = "healthy.yaml".to_owned();
-        let parser = super::YamlConfigurationParser::new(file_name.clone());
+        let parser = super::YamlFileConfigurationParser::new(file_name.clone());
         assert_eq!(file_name, parser.file_name);
     }
 }
