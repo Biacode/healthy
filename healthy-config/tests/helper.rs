@@ -12,7 +12,7 @@ pub fn create_email_configuration_file(file_name: &String) -> EmailConfiguration
         .to("foo@bar.com".to_owned())
         .from("biacoder@gmail.com".to_owned())
         .content("Hello, World!".to_owned());
-    path::write_file(
+    util::write_file(
         &serialize_to_yaml(&configuration),
         &app_dirs::get_app_root(app_dirs::AppDataType::UserConfig, &APP_INFO).unwrap(),
         file_name

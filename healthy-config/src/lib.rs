@@ -12,7 +12,7 @@ extern crate log;
 extern crate app_dirs;
 
 pub mod parser;
-pub mod path;
+pub mod util;
 pub mod email;
 
 /// Application info constant
