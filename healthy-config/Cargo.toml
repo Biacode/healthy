@@ -10,3 +10,4 @@ serde_derive = "1.0"
 serde_yaml = "0.7"
 app_dirs = "1.1"
 log = "0.3"
+healthy-core = {path = "../healthy-core"}

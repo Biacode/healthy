@@ -1,9 +1,11 @@
 extern crate healthy_config;
+extern crate healthy_core;
 
 mod helper;
 
 use helper::create_email_configuration_file;
 use healthy_config::*;
+use healthy_core::config::Parser;
 
 #[test]
 fn can_parse_email_configuration_from_file() {
