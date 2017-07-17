@@ -55,7 +55,7 @@ fn read_configuration_file_as_string(configuration_parser: &YamlConfigurationPar
         }
     };
     debug!("Successfully read configuration path - {:?}", &config_path);
-    let parsed_string = match super::path::read_file(&config_path, &configuration_parser.file_name) {
+    let parsed_string = match super::util::read_file(&config_path, &configuration_parser.file_name) {
         Ok(s) => s,
         Err(e) => return {
             error!("An error - {} occurs while trying to read file - {}", e, &configuration_parser.file_name);
