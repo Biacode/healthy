@@ -1,17 +1,15 @@
 extern crate healthy_config;
-extern crate healthy_core;
 
 mod helper;
 
 use helper::create_email_configuration_file;
 use healthy_config::*;
-use healthy_core::config::Parser;
 
 #[test]
 fn can_parse_email_configuration_from_file() {
     let file_name = "healthy.yaml".to_owned();
     let configuration = create_email_configuration_file(&file_name);
-    let result = YamlConfigurationParser::new(file_name).parse();
+    let result = YamlFileConfigurationParser::new(file_name).parse();
     assert_eq!(configuration, result.unwrap());
 }
 

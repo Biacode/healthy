@@ -5,9 +5,13 @@ authors = ["Arthur Asatryan <biacoder@gmail.com>"]
 workspace = "../"
 
 [dependencies]
+# healthy dependencies
+healthy-core = {path = "../healthy-core"}
+# serde dependencies
 serde = "1.0"
 serde_derive = "1.0"
 serde_yaml = "0.7"
-app_dirs = "1.1"
+# logging
 log = "0.3"
-healthy-core = {path = "../healthy-core"}
+# others
+app_dirs = "1.1"
