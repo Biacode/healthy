@@ -37,5 +37,5 @@ pub fn remove_configuration_file(file_name: &String) {
 
 /// Gets user's configuration application root
 pub fn get_user_config_app_root() -> PathBuf {
-    app_dirs::get_app_root(app_dirs::AppDataType::UserConfig, &APP_INFO).unwrap()
+    app_dirs::app_root(app_dirs::AppDataType::UserConfig, &APP_INFO).unwrap()
 }
