@@ -27,7 +27,7 @@ impl YamlFileConfigurationParser {
 }
 
 /// Possible error which can occur while parsing file.
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq)]
 pub enum FileConfigurationParseError {
     CantReadPath,
     CantReadFile,
@@ -78,4 +78,3 @@ mod tests {
         assert_eq!(file_name, parser.file_name);
     }
 }
-

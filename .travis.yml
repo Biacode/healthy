@@ -7,8 +7,9 @@ matrix:
 #    - rust: beta
 #    - rust: stable
 
+# add --no-run to disable output
 script:
-- cargo test --all --no-run
+- cargo test --all --color=always --nocapture
 
 cache: cargo
 
