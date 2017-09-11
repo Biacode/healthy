@@ -5,7 +5,7 @@ use super::{APP_INFO, Configuration, Parser, FileConfigurationParser, FileConfig
 /// # Examples
 ///
 /// ```rust
-/// util::read_file(&std::path::PathBuf::from("/tmp/"), &"foo.txt".to_owned());
+/// healthy_config::util::read_file(&std::path::PathBuf::from("/tmp/"), &"foo.txt".to_owned());
 /// ```
 ///
 /// # Errors
@@ -29,7 +29,7 @@ pub fn read_file(path: &std::path::PathBuf, file_name: &String) -> Result<String
 /// # Examples
 ///
 /// ```rust
-/// util::write_file(&"Hello, World!".to_owned(), &std::path::PathBuf::from("/tmp"), &"foo.txt".to_owned());
+/// healthy_config::util::write_file(&"Hello, World!".to_owned(), &std::path::PathBuf::from("/tmp"), &"foo.txt".to_owned());
 /// ```
 ///
 /// # Errors
@@ -52,12 +52,13 @@ pub fn write_file(file_content: &String, path: &std::path::PathBuf, file_name: &
 /// # Examples
 ///
 /// ```rust
-/// util::read_parser_file(&parser::YamlFileConfigurationParser::new("foo.txt".to_owned()));
+/// extern crate healthy_config;
+/// healthy_config::util::read_parser_file(&healthy_config::parser::YamlFileConfigurationParser::new("foo.txt".to_owned()));
 /// ```
 ///
 /// # Errors
 ///
-/// Returns `Err(FileConfigurationParseError)` if failed to read parser's file.
+/// Returns `Err(healthy_config::parser::FileConfigurationParseError)` if failed to read parser's file.
 pub fn read_parser_file<C: Configuration, P: Parser<C> + FileConfigurationParser>(file_parser: &P) -> Result<String, FileConfigurationParseError> {
     let config_path = match app_dirs::get_app_root(app_dirs::AppDataType::UserConfig, &APP_INFO) {
         Ok(path) => path,

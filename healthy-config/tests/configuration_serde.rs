@@ -1,5 +1,4 @@
 extern crate healthy_config;
-extern crate healthy_core;
 
 mod helper;
 

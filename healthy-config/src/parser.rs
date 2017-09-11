@@ -22,7 +22,7 @@ impl YamlFileConfigurationParser {
     /// Creates a new yaml file configuration parser for the given `file_name`.
     pub fn new(file_name: String) -> Self {
         debug!("Creating a new configuration parser for file with name {}", file_name);
-        YamlFileConfigurationParser { file_name: file_name }
+        YamlFileConfigurationParser { file_name }
     }
 }
 
@@ -44,12 +44,13 @@ impl Parser<EmailConfiguration> for YamlFileConfigurationParser {
     /// # Examples
     ///
     /// ```rust
-    /// parser::YamlFileConfigurationParser::new("foo.txt".to_owned()).parse();
+    /// use healthy_config::Parser;
+    /// healthy_config::parser::YamlFileConfigurationParser::new("foo.txt".to_owned()).parse();
     /// ```
     ///
     /// # Errors
     ///
-    /// Returns `Err(parser::FileConfigurationParseError)` if failed to parse configuration file
+    /// Returns `Err(healthy_config::parser::FileConfigurationParseError)` if failed to parse configuration file
     fn parse(self) -> Result<EmailConfiguration, FileConfigurationParseError> {
         let parsed_string = util::read_parser_file(&self)?;
         match serde_yaml::from_str(&parsed_string) {
