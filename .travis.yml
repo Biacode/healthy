@@ -9,7 +9,7 @@ matrix:
 
 # add --no-run to disable output
 script:
-- cargo test --all --color=always --nocapture
+- cargo test --all --color=always -- --nocapture
 
 cache: cargo
 
