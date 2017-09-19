@@ -1,3 +1,4 @@
+#![allow(unused_extern_crates)]
 extern crate serde;
 extern crate serde_yaml;
 
@@ -8,7 +9,7 @@ use healthy_config::*;
 use std::path::PathBuf;
 
 /// Prepares configuration file for test scenario.
-pub fn create_email_configuration_file(file_name: &String) -> EmailConfiguration {
+pub fn create_email_configuration_file(file_name: &str) -> EmailConfiguration {
     let configuration = EmailConfiguration::new()
         .to("foo@bar.com".to_owned())
         .from("biacoder@gmail.com".to_owned())
@@ -26,9 +27,9 @@ pub fn serialize_to_yaml<T: serde::Serialize>(serializable: &T) -> String {
     serde_yaml::to_string(&serializable).unwrap()
 }
 
-#[allow(unused)]
+#[allow(unused, clone_double_ref)]
 /// Removes configuration file
-pub fn remove_configuration_file(file_name: &String) {
+pub fn remove_configuration_file(file_name: &str) {
     use std::fs::remove_file;
     let mut path = get_user_config_app_root();
     path.push(file_name.clone());
@@ -38,4 +39,10 @@ pub fn remove_configuration_file(file_name: &String) {
 /// Gets user's configuration application root
 pub fn get_user_config_app_root() -> PathBuf {
     app_dirs::app_root(app_dirs::AppDataType::UserConfig, &APP_INFO).unwrap()
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {}
 }
