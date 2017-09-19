@@ -11,7 +11,7 @@ use super::{APP_INFO, Configuration, Parser, FileConfigurationParser, FileConfig
 /// # Errors
 ///
 /// Returns `Err(std::io::Error)` if failed to read file.
-pub fn read_file(path: &std::path::PathBuf, file_name: &String) -> Result<String, std::io::Error> {
+pub fn read_file(path: &std::path::PathBuf, file_name: &str) -> Result<String, std::io::Error> {
     use std::io::Read;
     debug!("Reading file with path - {:?} and file name - {}", path, file_name);
     let mut clone_config_path = path.clone();
@@ -35,7 +35,7 @@ pub fn read_file(path: &std::path::PathBuf, file_name: &String) -> Result<String
 /// # Errors
 ///
 /// Returns `Err(std::io::Error)` if failed to write file
-pub fn write_file(file_content: &String, path: &std::path::PathBuf, file_name: &String) -> Result<(), std::io::Error> {
+pub fn write_file(file_content: &str, path: &std::path::PathBuf, file_name: &str) -> Result<(), std::io::Error> {
     use std::io::Write;
     debug!("Writing file with content - {}, to path - {:?} with file name - {}", file_content, path, file_name);
     let mut clone_config_path = path.clone();
@@ -76,5 +76,5 @@ pub fn read_parser_file<C: Configuration, P: Parser<C> + FileConfigurationParser
         }
     };
     debug!("Successfully read configuration file as string - {}", &parsed_string);
-    return Ok(parsed_string);
+    Ok(parsed_string)
 }

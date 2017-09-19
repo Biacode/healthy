@@ -54,13 +54,13 @@ impl Parser<EmailConfiguration> for YamlFileConfigurationParser {
     fn parse(self) -> Result<EmailConfiguration, FileConfigurationParseError> {
         let parsed_string = util::read_parser_file(&self)?;
         match serde_yaml::from_str(&parsed_string) {
-            Ok(config) => return {
+            Ok(config) => {
                 debug!("Successfully deserialize - {:?}", &config);
                 Ok(config)
-            },
+            }
             Err(e) => {
                 error!("An error - {} occurs while trying to parse string - {}", e, &parsed_string);
-                return Err(FileConfigurationParseError::CantDeserializeFile);
+                Err(FileConfigurationParseError::CantDeserializeFile)
             }
         }
     }

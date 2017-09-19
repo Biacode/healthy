@@ -1,7 +1,7 @@
 use healthy_core::Configuration;
 
 /// Email configuration.
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EmailConfiguration {
     from: String,
     to: String,
@@ -25,11 +25,7 @@ impl EmailConfiguration {
     /// ```
     pub fn new() -> Self {
         debug!("Creating a new default email configuration");
-        EmailConfiguration {
-            from: "".to_owned(),
-            to: "".to_owned(),
-            content: "".to_owned()
-        }
+        Default::default()
     }
 
     /// To email.
