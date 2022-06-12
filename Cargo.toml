@@ -18,7 +18,7 @@ exclude = [
 members = ["healthy-core", "healthy-config", "healthy-scheduler"]
 
 [dependencies]
-lettre = "0.6"
+lettre = "0.9"
 log = "0.3"
 env_logger = "0.4"
 app_dirs = "1.1"
